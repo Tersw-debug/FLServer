@@ -1,33 +1,25 @@
 {
-  "name": "cls",
-  "version": "1.0.0",
-  "description": "This is my first server using nodejs and express.",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tersw-debug/FLServer.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Tersw-debug/FLServer/issues"
-  },
-  "homepage": "https://github.com/Tersw-debug/FLServer#readme",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0",
+    "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "uuid": "^11.1.0"
   },
-  "devDependencies": {
-    "nodemon": "^3.1.10"
-  }
+  "name": "master",
+  "version": "1.0.6",
+  "main": "server.js",
+  "scripts": {
+    "start": "node log",
+    "dev": "nodemon log"
+  },
+  "author": "WTF is that",
+  "license": "ISC",
+  "description": ""
 }
