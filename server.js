@@ -35,7 +35,7 @@ app.use('/learning-css/CSS', express.static(path.join(__dirname)));
 app.use('/', require('./roots'));
 app.use('/auth', require('./auth'));
 app.use('/register', require('./register'));
-app.use('/learning-css',require('./errorHandler'));
+app.use('/',require('./errorHandler'));
 app.use('/refresh', require('./refresh'));
 app.use('/logout', require('./logout'));
 
