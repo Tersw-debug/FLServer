@@ -30,7 +30,6 @@ app.use(express.static(path.join(__dirname)));
 
 app.use(cookieParser());
 
-app.use('/learning-css/CSS', express.static(path.join(__dirname)));
 
 app.use('/', require('./roots'));
 app.use('/auth', require('./auth'));
