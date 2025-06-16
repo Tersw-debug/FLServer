@@ -8,33 +8,31 @@ const PORT = process.env.PORT || 3500;
 const errorHander = require('./errorHandler');
 const verifyJWT = require('./verfiyJWT');
 const cookieParser = require('cookie-parser');
+const credentials = require('./credentials');
+const corsOptions = require('./config/corsOptions');
+// custom middleware logger
 app.use(logger);
 
-const whiltelist = ['http://localhost:3500','https://www.google.com','http://localhost:3500/refresh'];
-const corsoptions = {
-    origin: (origin, callback) => {
-        if(whiltelist.indexOf(origin) !== -1  || !origin){
-            callback.header('Access-Control-Allow-Origin', true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    optionSuccessStatus: 200
-}
+// Handle options credentials check - before CORS!
+// and fetch cookies credentials requirement
+app.use(credentials);
 
+// Cross Origin Resource Sharing
+app.use(cors(corsOptions));
 
-app.use(cors(corsoptions));
+// built-in middleware to handle urlencoded form data
 app.use(express.urlencoded());
+
+// built-in middleware for json 
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
 
+//middleware for cookies
 app.use(cookieParser());
-
 
 app.use('/', require('./roots'));
 app.use('/auth', require('./auth'));
 app.use('/register', require('./register'));
-app.use('/',require('./errorHandler'));
+
 app.use('/refresh', require('./refresh'));
 app.use('/logout', require('./logout'));
 
@@ -42,6 +40,7 @@ app.use(verifyJWT);
 app.use('/employees', require('./employees'));
 
 app.all('*', (req,res) => {
+    res.header('anything', 'something');
     res.sendStatus(404);
     if(req.accepts('html')){
         res.type('txt').send('404 Not Found');
@@ -53,9 +52,6 @@ app.all('*', (req,res) => {
 });
 
 app.use(errorHander);
-
-
-
 
 app.listen(PORT, ()=>{
     console.log(`Server running on port ${PORT}`);

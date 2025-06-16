@@ -23,8 +23,9 @@ const handleLogin = async (req, res) => {
     // evaluate password 
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
+        const role = Object.values(foundUser.roles);
         const accessToken = sign(
-            { "userInfo": { "username": foundUser.username } },
+            { "userInfo": { "username": foundUser.username, "roles":role } },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '30s' }
         );

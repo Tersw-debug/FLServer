@@ -20,7 +20,7 @@ const handleNewUser = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPwd = await bcrypt.hash(pwd, salt);
         //store the new user
-        const newUser = { "username": user, "password": hashedPwd };
+        const newUser = { "username": user,"roles": {"user": 2001},"password": hashedPwd};
         usersDB.setUsers([...usersDB.users, newUser]);
         await fs.writeFile(
             path.join(__dirname, '..', 'data', 'users.json'),

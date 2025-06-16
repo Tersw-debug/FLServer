@@ -1200,3 +1200,29 @@
 20250430	04:49:46	d40ff9d1-5433-40d9-8090-08fbf3cd313c	TypeError	 callback.header is not a function
 20250430	04:50:00	309ab21b-85c0-4fe8-9b2f-f2950296f3ea	POST	 undefined	/employees
 20250430	04:50:00	394d0c49-f749-47cc-bfca-b05ae6a32094	TypeError	 callback.header is not a function
+20250616	23:50:14	ddc79721-8774-4aa0-b7c2-4d7022ab3341	POST	 undefined	/refresh
+20250616	23:50:14	d5cbed26-849e-4e09-b4bd-9e62624b85a9	TypeError	 callback.header is not a function
+20250616	23:50:14	b32cc414-b915-40cc-bee9-db24d0ca346d	Error	 Cannot set headers after they are sent to the client
+20250616	23:50:31	6914d81e-e58e-4145-a92a-1f4a2bfec9fd	POST	 undefined	/auth
+20250616	23:50:31	14fc1d1f-246b-4aae-95e6-b1d10b0ff830	TypeError	 callback.header is not a function
+20250616	23:50:31	ba0197a9-c0e9-4340-953b-531bf823b36d	Error	 Cannot set headers after they are sent to the client
+20250616	23:50:42	7869fb7f-778b-4e59-ab20-6bbd4308299c	GET	 undefined	/logout
+20250616	23:50:42	128f3680-6600-47c0-9b7a-4281abf15713	TypeError	 callback.header is not a function
+20250616	23:50:42	140dbea0-4e0e-4576-90f3-e3247b59acd6	Error	 Cannot set headers after they are sent to the client
+20250616	23:50:46	082a3f3e-f600-473c-a909-99fcbd727db9	POST	 undefined	/employees
+20250616	23:50:46	d942ab2b-5728-4d1a-9468-c64d5b29def9	Error	 Cannot set headers after they are sent to the client
+20250616	23:50:46	590ce02a-60c2-48f5-a67e-e84df22f719b	TypeError	 callback.header is not a function
+20250616	23:56:05	bfcd35c2-d61d-4c83-89f0-7dddc71e5ff8	POST	 undefined	/auth
+20250616	23:56:05	580d882b-d35d-438c-96a8-12d6cd8e3980	TypeError	 callback.header is not a function
+20250616	23:56:05	5c40259e-6223-4490-89f7-3f2e96697de1	Error	 Cannot set headers after they are sent to the client
+20250616	23:56:46	579f547b-6294-4fba-add3-f3700df209e6	POST	 undefined	/auth
+20250616	23:56:46	e835be83-779e-48ec-a5e4-5d8d99e9a508	TypeError	 callback.header is not a function
+20250616	23:56:46	5510e5fa-92e2-4a1b-af84-88818ae8f6be	Error	 Cannot set headers after they are sent to the client
+20250616	23:57:53	93465754-5450-44f9-bea8-c2e6c47476bb	POST	 undefined	/auth
+20250616	23:57:53	9fda5ea2-7d0e-477f-a3a2-8066997e7f72	TypeError	 callback.header is not a function
+20250616	23:57:53	c6657884-9a56-463a-bc86-717fcb974351	Error	 Cannot set headers after they are sent to the client
+20250616	23:59:30	d97d8ec3-2ba7-444c-93a4-2c1a3c7558e7	GET	 undefined	/logout
+20250616	23:59:30	2cd2f9dd-2794-480b-822b-ccd54db653da	Error	 Cannot set headers after they are sent to the client
+20250616	23:59:30	5ff99a1d-b811-4242-8b9f-65e8bb642d88	TypeError	 callback.header is not a function
+20250617	00:01:48	8a25fec2-70e0-44a7-b455-b621b3d1836e	POST	 undefined	/refresh
+20250617	00:07:11	d3a5601a-653e-47cb-b31b-7266af33c687	POST	no-origin	/refresh
