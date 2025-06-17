@@ -3,10 +3,13 @@ import path from 'path';
 import {promises as fs} from 'fs';
 import data from '../data/users.json' with { type: 'json' };
 const __dirname = import.meta.dirname;
+
+
 const usersDB = {
     users: data,
-    setUsers: function (data) { this.users = data; },
-};
+    setUsers: function (data) { this.users = data }
+}
+
 
 
 const handleNewUser = async (req, res) => {
@@ -20,7 +23,7 @@ const handleNewUser = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPwd = await bcrypt.hash(pwd, salt);
         //store the new user
-        const newUser = { "username": user,"roles": {"user": 2001},"password": hashedPwd};
+        const newUser = { "username": user,"pwd": hashedPwd};
         usersDB.setUsers([...usersDB.users, newUser]);
         await fs.writeFile(
             path.join(__dirname, '..', 'data', 'users.json'),

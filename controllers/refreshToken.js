@@ -12,25 +12,30 @@ const usersDB = {
 
 const handleRefreshToken =  (req, res) => {
     const cookies = req.cookies;
-    if (!cookies?.jwt) return res.sendStatus(400).json({ 'message': 'Username and password are required.' });
+    if(!cookies?.jwt) return res.sendStatus(401).json({ 'message': 'No refresh token found.' });
     const refreshToken = cookies.jwt;
-    console.log('Refresh Token:', refreshToken);
-    const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
-    if (!foundUser) return res.sendStatus(401); //Unauthorized 
-    // evaluate password 
+    const foundUser = usersDB.users.find(person=> person.refreshToken === refreshToken);
+    if(!foundUser){
+        res.clearCookie('jwt', { httpOnly: true });
+        return res.sendStatus(403).json({ 'message': 'Forbidden: Invalid refresh token.' }); // Forbidden
+    }
     jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
-        (err, decoded) => {
-            if (err || foundUser.username !== decoded.username) return res.sendStatus(403); //Forbidden
+        (err, decode) =>{
+            if(err || foundUser.username !== decode.username){
+                res.clearCookie('jwt', { httpOnly: true });
+                return res.sendStatus(403).json({ 'message': 'Forbidden: Invalid refresh token.' }); // Forbidden
+            }
             const accessToken = jwt.sign(
-                { "username": decoded.username},
+                {"username": foundUser.username},
                 process.env.ACCESS_TOKEN_SECRET,
                 { expiresIn: '30s' }
-            );
-            res.json({ accessToken });
+            )
+            res.json({accessToken});
         }
     );
+
 }
 
-module.exports =  {handleRefreshToken} ;
+module.exports =  {handleRefreshToken};

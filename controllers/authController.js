@@ -1,3 +1,4 @@
+
 import data from '../data/users.json' with { type: 'json' };
 import bcrypt from 'bcryptjs';
 import {promises as fs} from 'fs';
@@ -24,8 +25,9 @@ const handleLogin = async (req, res) => {
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
         const role = Object.values(foundUser.roles);
-        const accessToken = sign(
-            { "userInfo": { "username": foundUser.username, "roles":role } },
+        console.log(role);
+        const accessToken = jwt.sign(
+            { "username": foundUser.username },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '30s' }
         );
@@ -41,7 +43,7 @@ const handleLogin = async (req, res) => {
             path.join(__dirname, '..', 'data', 'users.json'),
             JSON.stringify(usersDB.users)
         );
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 , sameSite: 'None', secure:true}); // secure:true
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 , sameSite: 'None', secure:false}); //When production secure:true
         res.json({accessToken});
     } else {
         res.sendStatus(401);

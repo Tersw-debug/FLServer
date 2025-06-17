@@ -14,16 +14,16 @@ const  postAllEmployees = (req, res) => {
         lastname: req.body.lastname
     }
     if(!poEmployee.firstname || !poEmployee.lastname){
-        return res.sendStatus(400).json({ "message": "First and last names are required" });
+        return res.status(400).json({ "message": "First and last names are required" });
     }
     data.setEmployees([...data.employees, poEmployee]);
-    res.sendStatus(201).json(data.employees);
+    res.status(201).json(data.employees);
 }
 
 const updateAllEmployees = (req, res) => {
     const puEmployee = data.employees.find(emp => emp.id === parseInt(req.body.id));
     if(!puEmployee){
-        return res.sendStatus(400).json({ "message": `Employee ID ${req.body.id} not found` });
+        return res.status(400).json({ "message": `Employee ID ${req.body.id} not found` });
     }
     if(puEmployee === req.body.firstname || puEmployee === req.body.lastname){
         puEmployee.firstname = req.body.firstname;
@@ -39,7 +39,7 @@ const updateAllEmployees = (req, res) => {
 const deleteAllEmployees = (req, res) => {
     const employe = data.employees.find(emp => emp.id === parseInt(req.body.id));
     if(!employe){
-        return res.sendStatus(400).json({ "message": `Employee ID ${req.body.id} not found` });
+        return res.status(400).json({ "message": `Employee ID ${req.body.id} not found` });
     }
     const filteredArray = data.employees.filter(emp => emp.id !== parseInt(req.body.id));
     data.setEmployees([...filteredArray]);
@@ -49,7 +49,7 @@ const deleteAllEmployees = (req, res) => {
 const getEmployee = (req, res) => {
     const employee = data.employees.find(emp => emp.id === parseInt(req.params.id));
     if(!employee){
-        return res.sendStatus(400).json({ "message": `Employee ID ${req.params.id} not found` });
+        return res.status(400).json({ "message": `Employee ID ${req.params.id} not found` });
     }
     res.json(employee);
 }
