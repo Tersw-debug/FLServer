@@ -21,7 +21,7 @@ app.use(credentials);
 app.use(cors(corsOptions));
 
 // built-in middleware to handle urlencoded form data
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 
 // built-in middleware for json 
 app.use(express.json());
@@ -39,7 +39,12 @@ app.use('/refresh', require('./refresh'));
 app.use('/logout', require('./logout'));
 
 app.use(verifyJWT);
+
+
+
 app.use('/employees', require('./employees'));
+
+
 
 app.all('*', (req, res) => {
     res.status(404);

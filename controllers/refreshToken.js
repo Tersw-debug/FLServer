@@ -22,13 +22,19 @@ const handleRefreshToken =  (req, res) => {
     jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
-        (err, decode) =>{
-            if(err || foundUser.username !== decode.username){
+        (err, decoded) =>{
+            const roles = Object.values(foundUser.roles);
+            if(err || foundUser.username !== decoded.username){
                 res.clearCookie('jwt', { httpOnly: true });
                 return res.sendStatus(403).json({ 'message': 'Forbidden: Invalid refresh token.' }); // Forbidden
             }
             const accessToken = jwt.sign(
-                {"username": foundUser.username},
+                {
+                     "UserInfo": {
+                        "username": decoded.username,
+                        "roles": roles
+                    }
+                },
                 process.env.ACCESS_TOKEN_SECRET,
                 { expiresIn: '30s' }
             )
