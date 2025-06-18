@@ -5,7 +5,6 @@ import {promises as fs} from 'fs';
 import path from 'path';
 const __dirname = import.meta.dirname;
 import jwt from 'jsonwebtoken';
-import 'dotenv/config';
 const {sign,verify} = jwt;
 
 

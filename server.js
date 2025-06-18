@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const {logger, logTrying} = require('./learning');
 const { URL } = require('url');
@@ -10,12 +11,18 @@ const verifyJWT = require('./verfiyJWT');
 const cookieParser = require('cookie-parser');
 const credentials = require('./credentials');
 const corsOptions = require('./config/corsOptions');
+const mongoose = require('mongoose');
+const connectDb = require('./config/configuration');
 // custom middleware logger
+
+connectDb();
+
+
 app.use(logger);
 
 // Handle options credentials check - before CORS!
 // and fetch cookies credentials requirement
-app.use(credentials);
+app.use(credentials);              //Kwz3XvYUJRqvuGh8
 
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions));
@@ -58,20 +65,13 @@ app.all('*', (req, res) => {
 });
 
 app.use(errorHander);
-
-app.listen(PORT, ()=>{
-    console.log(`Server running on port ${PORT}`);
-});
-
-
-
-
-
-
-
-
-
-
+mongoose.connection.on('open', () => 
+    {
+        console.log('MongoDB connected');
+        app.listen(PORT, ()=>{
+            console.log(`Server running on port ${PORT}`);
+        });
+    });
 
 
 

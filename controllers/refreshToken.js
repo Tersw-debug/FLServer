@@ -2,7 +2,7 @@
 
 const path = require('path');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+
 
 const usersDB = {
     users: require(path.join(__dirname, '..', 'data', 'users.json')),
