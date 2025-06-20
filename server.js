@@ -51,7 +51,7 @@ app.use(verifyJWT);
 
 app.use('/employees', require('./employees'));
 
-
+app.use('/users', require('./users.js'));
 
 app.all('*', (req, res) => {
     res.status(404);

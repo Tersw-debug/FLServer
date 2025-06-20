@@ -1,39 +1,59 @@
 import bcrypt from 'bcryptjs';
-import path from 'path';
-import {promises as fs} from 'fs';
-import data from '../data/users.json' with { type: 'json' };
-const __dirname = import.meta.dirname;
+import User from '../data/User.js';
 
 
-const usersDB = {
-    users: data,
-    setUsers: function (data) { this.users = data }
-}
 
 
 
 const handleNewUser = async (req, res) => {
-    const { user, pwd } = req.body;
-    if (!user || !pwd) return res.sendStatus(400).json({ 'message': 'Username and password are required.' });
+    const { user, pwd, email, phone } = req.body;
+    if (!user || !pwd || !email || !phone) return res.sendStatus(400).json({ 'message': 'Username, password, email, and phone are required.' });
     // check for duplicate usernames in the db
-    const duplicate = usersDB.users.find(person => person.username === user);
+    const duplicate = await User.findOne( {$or: [{ username: user }, { email: email }]}).exec();
     if (duplicate) return res.sendStatus(409); //Conflict 
     try {
         //encrypt the password
         const salt = await bcrypt.genSalt(10);
         const hashedPwd = await bcrypt.hash(pwd, salt);
         //store the new user
-        const newUser = { "username": user,"pwd": hashedPwd};
-        usersDB.setUsers([...usersDB.users, newUser]);
-        await fs.writeFile(
-            path.join(__dirname, '..', 'data', 'users.json'),
-            JSON.stringify(usersDB.users)
-        );
+        const newUser = new User({
+            username: user,
+            password: hashedPwd,
+            email: email,
+            phone: phone
+        });
+        const result = await newUser.save();
+        res.status(201).json({ 'message': `New user ${user} created successfully.` });
     }
     catch (err) {
-        res.sendStatus(500).json({ 'message': err.message });
+        res.status(500).json({ 'message': err.message });
     }
 }
 
+const getAllusers = async (req,res) =>{
+    const result = await User.find().exec();
+    res.json(result);
+}
+const deleteSomeUser = async (req,res) => {
+    if(!req?.body?.id){
+        res.status(400).json({"message":"Please specify an id."});
+    }
+    const result = await User.deleteOne({_id: req.body.id}).exec();
+    res.json(result);
+}
 
-export  { handleNewUser };
+const getSomeUser = async (req,res) => {
+    if(!req?.params?.id)
+    {
+        return res.status(400).json({"message" : "Employee id required."});
+    }
+    const result = await User.findOne({_id: req.params.id}).exec();
+    res.json(result);
+}
+
+export  { 
+    handleNewUser,
+    getAllusers, 
+    deleteSomeUser,
+    getSomeUser 
+};
